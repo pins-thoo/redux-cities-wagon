@@ -1,30 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import City from '../containers/city';
 
-class CityList extends Component {
-  renderList() {
-    return this.props.cities.map((city) => {
-      return (
+const CityList = () => {
+  const cities = useSelector(state => state.cities);
+
+  return (
+    <ul className="list-group cities">
+      {cities.map(city =>
         <City key={city.name} city={city} />
-      );
-    });
-  }
+      )}
+    </ul>
+  );
+};
 
-  render() {
-    return (
-      <ul className="list-group cities">
-        {this.renderList()}
-      </ul>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    cities: state.cities
-  };
-}
-
-export default connect(mapStateToProps)(CityList);
+export default CityList;
